@@ -1,0 +1,55 @@
+
+<ion-header-bar class="bar-positive">
+    <div class="buttons">
+        <button class="button button-icon icon ion-ios-minus-outline"
+                ng-click="data.showDelete = !data.showDelete;"></button>
+    </div>
+    <h1 class="title">Player Settings</h1>
+    <div class="buttons">
+        <button class="button" ng-click="addPlayer()">
+            Add Player
+        </button>
+    </div>
+</ion-header-bar>
+<ion-content class="padding">
+
+    <ion-list show-delete="data.showDelete">
+        <div class="list" ng-repeat="player in players">
+            <ion-toggle ng-model="player.isHuman">
+                Robot/Human
+            </ion-toggle>
+            <ion-item class="item-remove-animate item-icon-right"  type="item-text-wrap">
+                <ion-delete-button class="ion-minus-circled"
+                                   ng-click="remove(player)">
+                </ion-delete-button>
+                <label class="item-input">
+                    <span class="input-label">Name</span>
+                    <input class="templateTitle" type="text"  ng-model="player.name" placeholder="P{{player.id}}" />
+                </label>
+                <label class="item-input">
+                    <span class="input-label">Color</span>
+                    <select ng-model="player.color" class="selectColorElement" ng-focus="updateColorSelected($event)" ><!---->
+                        <option>random</option>
+                        
+                        
+                    </select>
+                </label>
+
+                <i class="icon ion-chevron-left icon-accessory"></i>
+                <ion-option-button class="button-assertive" ng-click="remove(player)">
+                    Remove
+                </ion-option-button>
+            </ion-item>
+            <div class="item range range-positive" ng-class="{hide: player.isHuman}">
+                <i class="icon ion-ios-person" ng-click="decreaseIntelligence(player)"></i>
+                <input type="range" min="0" max="2" ng-model="player.intelligenceLevel">
+                <i class="icon ion-ios-personadd-outline" ng-click="increaseIntelligence(player)"></i>
+                
+            </div>
+
+        </div>
+
+    </ion-list>
+    <a class="button button-block button-positive" ng-show=" players.length>1" href="#/game" ng-click="savePlayerArray(players);">Start Game</a>
+</ion-content>
+
